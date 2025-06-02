@@ -1,5 +1,6 @@
 [versions]
 agp = "8.10.0"
+datastorePreferences = "1.1.7"
 kotlin = "2.0.21"
 coreKtx = "1.16.0"
 junit = "4.13.2"
@@ -9,10 +10,16 @@ lifecycleRuntimeKtx = "2.9.0"
 activityCompose = "1.10.1"
 composeBom = "2024.09.00"
 ktor = "3.1.2"
+hilt = "2.51.1"
+hilt-navigation = "1.2.0"
+storage = "1.5.0"
+coilCompose = "3.1.0"
+
 
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -35,10 +42,19 @@ ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "kto
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
 ktor-serialization-gson= { module = "io.ktor:ktor-serialization-gson", version.ref = "ktor" }
 
+hilt-android={group="com.google.dagger",name="hilt-android",version.ref="hilt"}
+hilt-android-compiler={group="com.google.dagger", name="hilt-android-compiler", version.ref="hilt"}
+hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-navigation"}
+androidx-storage = { group = "androidx.test.services", name = "storage", version.ref = "storage" }
+
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
+coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilCompose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+hilt-android={id="com.google.dagger.hilt.android",version.ref="hilt"}
+
 
 

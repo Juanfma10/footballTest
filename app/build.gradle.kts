@@ -4,6 +4,11 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id ("kotlin-kapt")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
+
+
 
 }
 
@@ -68,6 +73,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -82,9 +88,21 @@ dependencies {
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.client.cio)
     implementation(libs.ktor.client.android)
-    implementation(libs.ktor.serialization.gson)
     implementation(libs.ktor.client.okhttp)
 
+    //hilt
+    implementation(libs.hilt.navigation.compose)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
 
+    //Async images
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.hilt.navigation.compose)
+}
+
+kapt {
+    correctErrorTypes = true
 }
