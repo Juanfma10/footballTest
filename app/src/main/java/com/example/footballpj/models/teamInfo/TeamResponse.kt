@@ -1,5 +1,7 @@
-package com.example.footballpj.models
+package com.example.footballpj.models.teamInfo
+
 import kotlinx.serialization.Serializable
+
 
 @Serializable
 data class TeamResponse(

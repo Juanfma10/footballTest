@@ -11,9 +11,8 @@ import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.http.URLProtocol
-
 import kotlinx.serialization.json.Json
-import io.ktor.serialization.kotlinx.json.*
+import io.ktor.serialization.kotlinx.json.json // ← importante
 import javax.inject.Singleton
 
 
@@ -25,7 +24,13 @@ class Network {
     fun provideHttpClient(): HttpClient {
         return HttpClient(Android) {
             install(ContentNegotiation) {
-                json()
+                json(
+                    Json {
+                        ignoreUnknownKeys = true
+                        isLenient = true
+                        prettyPrint = true
+                    }
+                )
             }
 
             defaultRequest {

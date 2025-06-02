@@ -1,28 +1,32 @@
 package com.example.footballpj.viewsModels
 
-import com.example.footballpj.services.SearchTeam
+import com.example.footballpj.services.APIservices
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.footballpj.models.Team
+import com.example.footballpj.models.teamInfo.Team
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(
-    private val searchTeam: SearchTeam
+    private val searchTeam: APIservices
 ) : ViewModel() {
 
-    private val _teams = MutableStateFlow<List<Team>>(emptyList())
+    val _teams = MutableStateFlow<List<Team>>(emptyList())
     val teams: StateFlow<List<Team>> = _teams
 
-    private val _loading = MutableStateFlow(false)
+    val _loading = MutableStateFlow(false)
     val loading: StateFlow<Boolean> = _loading
 
-    private val _error = MutableStateFlow<String?>(null)
+    val _error = MutableStateFlow<String?>(null)
     val error: StateFlow<String?> = _error
+
+    init {
+        search("")
+    }
 
     fun search(query: String) {
 
@@ -31,9 +35,6 @@ class OnboardingViewModel @Inject constructor(
             _error.value = null
             return
         }
-
-
-
         viewModelScope.launch {
             _loading.value = true
             _error.value = null

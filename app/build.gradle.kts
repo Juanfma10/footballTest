@@ -4,9 +4,11 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.hilt.android)
+    id("org.jetbrains.kotlin.plugin.serialization")
     id ("kotlin-kapt")
     kotlin("kapt")
-    id("dagger.hilt.android.plugin")
+
 
 
 
@@ -84,11 +86,15 @@ dependencies {
 
     //ktor
     implementation(libs.ktor.client.core)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.ktor.serialization.kotlinx.json)
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.client.cio)
     implementation(libs.ktor.client.android)
     implementation(libs.ktor.client.okhttp)
+
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.core)
 
     //hilt
     implementation(libs.hilt.navigation.compose)
@@ -101,6 +107,7 @@ dependencies {
 
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.hilt.navigation.compose)
+
 }
 
 kapt {
