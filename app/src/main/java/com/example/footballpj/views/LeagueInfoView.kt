@@ -76,7 +76,7 @@ fun LeagueInfoScreen(
 
                 error != null -> {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        Text("Error: $error", color = MaterialTheme.colorScheme.error)
+                        Text("$error", color = MaterialTheme.colorScheme.error)
                     }
                 }
 

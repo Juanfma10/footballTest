@@ -39,16 +39,13 @@ class HomeViewModel @Inject constructor(
     init {
         loadSelectedTeamsAndLeagues()
     }
-    private fun loadSelectedTeams() {
-        val savedTeams = preferenceManager.getSelectedTeams()
-        _selectedTeams.value = savedTeams.toList()
-    }
+
+
 
     private fun loadSelectedTeamsAndLeagues() {
         viewModelScope.launch {
             _loading.value = true
             try {
-                // Leer equipos favoritos desde SharedPreferences
                 val prefs = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
                 val json = prefs.getString("favorite_teams", "[]")
                 val teams = Json.decodeFromString<List<Team>>(json ?: "[]")

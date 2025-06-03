@@ -12,7 +12,7 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.http.URLProtocol
 import kotlinx.serialization.json.Json
-import io.ktor.serialization.kotlinx.json.json // ← importante
+import io.ktor.serialization.kotlinx.json.json
 import javax.inject.Singleton
 
 

@@ -1,9 +1,8 @@
 package com.example.footballpj.services
 
-import com.example.footballpj.models.currentseason.LeagueCurrentSeasonResponse
 import com.example.footballpj.models.teamInfo.Team
 import com.example.footballpj.models.teamInfo.TeamResponse
-import io.ktor.client.statement.* // Necesario para HttpResponse
+import io.ktor.client.statement.*
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
