@@ -1,5 +1,6 @@
 package com.example.footballpj.services
 
+import com.example.footballpj.models.currentseason.LeagueCurrentSeasonResponse
 import com.example.footballpj.models.teamInfo.Team
 import com.example.footballpj.models.teamInfo.TeamResponse
 import io.ktor.client.statement.* // Necesario para HttpResponse
@@ -9,6 +10,8 @@ import io.ktor.client.request.*
 import javax.inject.Inject
 import com.example.footballpj.models.leagueInfo.League
 import com.example.footballpj.models.leagueInfo.LeagueResponse
+import com.example.footballpj.models.standingleagues.StandingsResponse
+import java.time.LocalDate
 
 
 class APIservices @Inject constructor(
@@ -17,13 +20,11 @@ class APIservices @Inject constructor(
     suspend fun searchTeams(query: String): List<Team> {
         val response: TeamResponse = client.get("/teams") {
             url {
-                parameters.append("search=", query)
+                parameters.append("search", query)
             }
         }.body()
 
-
-        //Log.d("API_JSON", response.response.map { it.team })  // 👈 Imprime el JSON en consola (Logcat)
-        return response.response.map { it.team };
+        return response.response.map { it.team }
     }
 
     suspend fun getLeaguesForTeams(teamIds: List<Int>): List<League> {
@@ -31,11 +32,31 @@ class APIservices @Inject constructor(
         for (teamId in teamIds) {
             val response: HttpResponse = client.get("/leagues") {
                 parameter("team", teamId)
+                parameter("current", true)
             }
-            val body = response.body<LeagueResponse>() // asumiendo tu modelo
+            val body = response.body<LeagueResponse>()
             leagues.addAll(body.response.map { it.league })
         }
-        return leagues
+        return leagues.distinctBy { it.id }
+    }
+
+    suspend fun getStandings(leagueId: Int): StandingsResponse {
+        val currentYear = LocalDate.now().year
+        var response: StandingsResponse? = null
+
+        for (year in currentYear downTo currentYear - 3) {
+            val result = client.get("/standings") {
+                parameter("league", leagueId)
+                parameter("season", year)
+            }.body<StandingsResponse>()
+
+            if (result.response.isNotEmpty()) {
+                response = result
+                break
+            }
+        }
+
+        return response ?: StandingsResponse(response = emptyList())
     }
 }
 

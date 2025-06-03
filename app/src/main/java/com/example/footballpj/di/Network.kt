@@ -27,8 +27,6 @@ class Network {
                 json(
                     Json {
                         ignoreUnknownKeys = true
-                        isLenient = true
-                        prettyPrint = true
                     }
                 )
             }
