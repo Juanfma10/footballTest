@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LeagueInfoViewModel @Inject constructor(
-    private val api: APIservices
+    private val apiServices: APIservices
 ) : ViewModel() {
 
     private val _groupedStandings = MutableStateFlow<List<List<StandingTeam>>>(emptyList())
@@ -28,11 +28,11 @@ class LeagueInfoViewModel @Inject constructor(
     val error = MutableStateFlow<String?>(null)
 
     fun loadStandings(leagueId: Int) {
-        println("Buscando standings para leagueId: $leagueId")
+
         viewModelScope.launch {
             loading.value = true
             try {
-                val result = api.getStandings(leagueId)
+                val result = apiServices.getStandings(leagueId)
                 val standingsRaw = result.response
                     .firstOrNull()?.league?.standings
 
@@ -56,7 +56,6 @@ class LeagueInfoViewModel @Inject constructor(
                     _isGrouped.value = false
                 }
 
-                println("STANDINGS GROUPS SIZE: ${standingsRaw.size}")
 
             } catch (e: Exception) {
                 error.value = e.message

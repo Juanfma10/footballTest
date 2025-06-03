@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.asStateFlow
 
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(
-    private val searchTeam: APIservices,
+    private val apiServices: APIservices,
     private val prefs: PreferenceManager
 ) : ViewModel() {
 
@@ -55,7 +55,7 @@ class OnboardingViewModel @Inject constructor(
             _error.value = null
 
             try {
-                val result = searchTeam.searchTeams(query)
+                val result = apiServices.searchTeams(query)
                 _teams.value = result
             } catch (e: Exception) {
                 _error.value = "Error al buscar equipos: ${e.localizedMessage}"
@@ -64,6 +64,4 @@ class OnboardingViewModel @Inject constructor(
             }
         }
     }
-
-    companion object
 }

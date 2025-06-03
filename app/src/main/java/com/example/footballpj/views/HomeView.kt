@@ -3,6 +3,7 @@ package com.example.footballpj.views
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -24,6 +25,7 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     var showDialog by remember { mutableStateOf(false) }
+    val selectedTeams by viewModel.selectedTeams.collectAsState()
     val leagues by viewModel.leagues
     val loading by viewModel.loading
     val error by viewModel.error
@@ -55,6 +57,46 @@ fun HomeScreen(
                 .fillMaxSize()
                 .padding(horizontal = 16.dp)
         ) {
+            if (selectedTeams.isNotEmpty()) {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer
+                    )
+                ) {
+                    Column(
+                        modifier = Modifier.padding(12.dp)
+                    ) {
+                        Text(
+                            text = "Tus Equipos",
+                            style = MaterialTheme.typography.titleMedium,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        LazyRow {
+                            items(selectedTeams) { team ->
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    modifier = Modifier
+                                        .padding(horizontal = 8.dp)
+                                ) {
+                                    AsyncImage(
+                                        model = team.logo,
+                                        contentDescription = team.name,
+                                        modifier = Modifier.size(48.dp)
+                                    )
+                                    Text(
+                                        text = team.name,
+                                        style = MaterialTheme.typography.bodySmall
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             when {
                 loading -> {
                     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -141,6 +183,7 @@ fun HomeScreen(
         )
     }
 }
+
 
 
 
