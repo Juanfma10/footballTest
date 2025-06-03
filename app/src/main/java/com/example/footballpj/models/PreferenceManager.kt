@@ -21,13 +21,7 @@ class PreferenceManager @Inject constructor(
         return prefs.getBoolean("onboarding_completed", false)
     }
 
-    // 🔹 Guarda equipos seleccionados como Set<String>
-    fun saveSelectedTeams(teams: List<Team>) {
-        val json = Json.encodeToString(teams)
-        prefs.edit().putString("favorite_teams", json).apply()
-    }
 
-    // 🔹 Obtiene los equipos seleccionados
     fun getSelectedTeams(): List<Team> {
         val json = prefs.getString("favorite_teams", "[]") ?: "[]"
         return try {
@@ -37,8 +31,5 @@ class PreferenceManager @Inject constructor(
         }
     }
 
-    // 🔹 Borra la selección
-    fun clearSelectedTeams() {
-        prefs.edit().remove("selected_teams").apply()
-    }
+
 }
