@@ -40,8 +40,6 @@ class HomeViewModel @Inject constructor(
         loadSelectedTeamsAndLeagues()
     }
 
-
-
     private fun loadSelectedTeamsAndLeagues() {
         viewModelScope.launch {
             _loading.value = true

@@ -61,11 +61,25 @@ fun OnboardingScreen(
                     value = query.value,
                     onValueChange = {
                         query.value = it
-                        viewModel.search(it)
+                        if (it.length >= 3) {
+                            viewModel.search(it)
+                        }
+                        else {
+                            viewModel.clearSearchResults()
+                        }
+
                     },
+
                     label = { Text("Buscar equipos...") },
                     modifier = Modifier.fillMaxWidth()
                 )
+                if (query.value.length <2) {
+                    Text(
+                        text = "Escribe al menos 3 letras para buscar.",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
 
                 Spacer(modifier = Modifier.height(12.dp))
 

@@ -34,6 +34,10 @@ class OnboardingViewModel @Inject constructor(
         return prefs.isOnboardingCompleted()
     }
 
+    fun clearSearchResults() {
+        _teams.value = emptyList()
+    }
+
     val _teams = MutableStateFlow<List<Team>>(emptyList())
     val teams: StateFlow<List<Team>> = _teams
 
